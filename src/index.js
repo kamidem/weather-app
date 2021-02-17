@@ -93,18 +93,6 @@ function searchWeather(event) {
 let searchButton = document.querySelector(".search-button");
 searchButton.addEventListener("click", searchWeather);
 
-// Feature 3 (changing between F & C)
-//FINISH this one
-function showF(event) {
-  event.preventDefault();
-  document.querySelector(".main-temp").innerHTML = `40°F`;
-}
-function showC(event) {
-  event.preventDefault();
-  document.querySelector(".main-temp").innerHTML = `10°C`;
-}
-document.querySelector("#f-button").addEventListener("click", showF);
-document.querySelector("#c-button").addEventListener("click", showC);
 
 // Feature 5 (current location weather) maybe add FEELS LIKE, MIN TEMP, MAX TEMP
 function showCurrLocTemp(response) {
@@ -164,3 +152,8 @@ let locationButton = document.querySelector(".my-location-button");
 locationButton.addEventListener("click", findLocation);
 
 search("london");
+
+
+
+
+
