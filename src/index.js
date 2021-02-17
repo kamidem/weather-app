@@ -30,10 +30,10 @@ function showTodaysWeatherAndCity(response) {
   document.querySelector(".main-temp").innerHTML = `${Math.round(
     response.data.main.temp
   )}°C`;
-  document.querySelector("#wind").innerHTML = `${response.data.wind.speed} m/s`;
+  document.querySelector("#wind").innerHTML = `wind speed ${response.data.wind.speed} m/s`;
   document.querySelector(
     "#humidity"
-  ).innerHTML = `${response.data.main.humidity} %`;
+  ).innerHTML = `humidity ${response.data.main.humidity} %`;
   document.querySelector(
     ".today-description"
   ).innerHTML = `${response.data.weather[0].main}`;
@@ -61,7 +61,7 @@ function showTodaysWeatherAndCity(response) {
   }
   document.querySelector(
     "#sunrise"
-  ).innerHTML = `Sunrise ${sunriseHour}:${sunriseMinute}`;
+  ).innerHTML = `sunrise ${sunriseHour}:${sunriseMinute}`;
   // SUNSET
   let unixSunset = response.data.sys.sunset;
   let sunsetDate = new Date(unixSunset * 1000);
@@ -75,7 +75,7 @@ function showTodaysWeatherAndCity(response) {
   }
   document.querySelector(
     "#sunset"
-  ).innerHTML = `Sunset ${sunsetHour}:${sunsetMinute}`;
+  ).innerHTML = `sunset ${sunsetHour}:${sunsetMinute}`;
 }
 
 function search(city) {
