@@ -27,8 +27,9 @@ h5.innerHTML = formatDate(now);
 // Feature 2&4 (click search button: display searched city & live weather data)
 function showTodaysWeatherAndCity(response) {
   document.querySelector("h2").innerHTML = response.data.name;
+  cTemp = response.data.main.temp;
   document.querySelector(".main-temp").innerHTML = `${Math.round(
-    response.data.main.temp
+    cTemp
   )}`;
   document.querySelector("#wind").innerHTML = `${response.data.wind.speed}m/s`;
   document.querySelector(
@@ -37,6 +38,7 @@ function showTodaysWeatherAndCity(response) {
   document.querySelector(
     ".today-description"
   ).innerHTML = `${response.data.weather[0].main}`;
+  
   // add feels like on the app
   //let feelsLike = document.querySelector("#feels-like");
   //feelsLike.innerHTML = `${Math.round(response.data.main.feels_like)}°C`;
@@ -150,6 +152,30 @@ function findLocation(event) {
 
 let locationButton = document.querySelector(".my-location-button");
 locationButton.addEventListener("click", findLocation);
+
+// c-f link funtion
+function displayF(event) {
+  event.preventDefault();
+  let tempElement = document.querySelector(".main-temp");
+  cLink.classList.remove("active");
+  fLink.classList.add("active");
+  let fTemp = (cTemp * 1.8) + 32;
+  tempElement.innerHTML = Math.round(fTemp);
+}
+function displayC(event) {
+  event.preventDefault();
+  let tempElement = document.querySelector(".main-temp");
+  cLink.classList.add("active");
+  fLink.classList.remove("active");
+  tempElement.innerHTML = Math.round(cTemp);
+}
+
+let cTemp = null;
+
+let fLink = document.querySelector(".f-link");
+fLink.addEventListener("click", displayF);
+let cLink = document.querySelector(".c-link");
+cLink.addEventListener("click", displayC);
 
 search("london");
 

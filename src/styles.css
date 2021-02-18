@@ -34,8 +34,22 @@ h2 {
   font-size: 650%;
 }
 .c-link,
-.f-link {
+.f-link,
+.c-f-detail {
   position: relative;
+  top: -60px;
+  font-size: 20px;
+  text-decoration: none;
+}
+.c-link:hover,
+.f-link:hover {
+} /* to update maybe*/
+.c-link,
+.f-link {
+  color: grey;
+}
+.active {
+  color: black;
 }
 .today-weather-image {
   font-size: 900%;
