@@ -1,6 +1,14 @@
 // Feature 1 (current time & day of the week)
-let now = new Date();
-function formatDate() {
+function formatDate(timestamp) {
+  let date = new Date(timestamp);
+  let hour = date.getHours();
+  if (hour < 10) {
+    hour = `0${hour}`;
+  }
+  let minute = date.getMinutes();
+  if (minute < 10) {
+    minute = `0${minute}`;
+  }
   let weekDays = [
     "Sunday",
     "Monday",
@@ -10,23 +18,16 @@ function formatDate() {
     "Friday",
     "Saturday"
   ];
-  let weekDay = weekDays[now.getDay()];
-  let hour = now.getHours();
-  let minute = now.getMinutes();
-  if (hour < 10) {
-    hour = `0${hour}`;
-  }
-  if (minute < 10) {
-    minute = `0${minute}`;
-  }
-  return `${weekDay} ${hour}:${minute}`;
+  let weekDay = weekDays[date.getDay()];
+  return `Last updated on ${weekDay} ${hour}:${minute}`;
 }
-let h5 = document.querySelector("h5");
-h5.innerHTML = formatDate(now);
+
 
 // Feature 2&4 (click search button: display searched city & live weather data)
 function showTodaysWeatherAndCity(response) {
   document.querySelector("h2").innerHTML = response.data.name;
+  console.log(response);
+  document.querySelector("h5").innerHTML = formatDate(response.data.dt*1000);
   cTemp = response.data.main.temp;
   document.querySelector(".main-temp").innerHTML = `${Math.round(
     cTemp
@@ -38,17 +39,6 @@ function showTodaysWeatherAndCity(response) {
   document.querySelector(
     ".today-description"
   ).innerHTML = `${response.data.weather[0].main}`;
-  
-  // add feels like on the app
-  //let feelsLike = document.querySelector("#feels-like");
-  //feelsLike.innerHTML = `${Math.round(response.data.main.feels_like)}°C`;
-  //console.log(Math.round(response.data.main.feels_like))
-
-  //add min, max temp to the app
-  /*let maxTemp = document.querySelector("#max-temp");
-  maxTemp.innerHTML = `${Math.round(response.data.main.temp_max)}°C`
-  let minTemp = document.querySelector("#min-temp");
-  maxTemp.innerHTML = `${Math.round(response.data.main.temp_min)}°C`*/
 
   // SUNRISE
   let unixSunrise = response.data.sys.sunrise;
@@ -180,6 +170,19 @@ cLink.addEventListener("click", displayC);
 search("london");
 
 
+
+
+
+  // add feels like on the app
+  //let feelsLike = document.querySelector("#feels-like");
+  //feelsLike.innerHTML = `${Math.round(response.data.main.feels_like)}°C`;
+  //console.log(Math.round(response.data.main.feels_like))
+
+  //add min, max temp to the app
+  /*let maxTemp = document.querySelector("#max-temp");
+  maxTemp.innerHTML = `${Math.round(response.data.main.temp_max)}°C`
+  let minTemp = document.querySelector("#min-temp");
+  maxTemp.innerHTML = `${Math.round(response.data.main.temp_min)}°C`*/
 
 
 
