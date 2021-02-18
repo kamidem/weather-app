@@ -1,4 +1,4 @@
-// Feature 1 (current time & day of the week)
+// current time & day of the week
 function formatDate(timestamp) {
   let date = new Date(timestamp);
   let hour = date.getHours();
@@ -23,32 +23,22 @@ function formatDate(timestamp) {
 }
 
 
-// Feature 2&4 (click search button: display searched city & live weather data)
+// display searched city & live weather data
 function showTodaysWeatherAndCity(response) {
-  console.log(response);
-  
   document.querySelector("h2").innerHTML = response.data.name;
   document.querySelector("h5").innerHTML = formatDate(response.data.dt*1000);
   cTemp = response.data.main.temp;
-  document.querySelector(".main-temp").innerHTML = `${Math.round(
-    cTemp
-  )}`;
+  document.querySelector(".main-temp").innerHTML = `${Math.round(cTemp)}`;
   document.querySelector("#wind").innerHTML = `${response.data.wind.speed}m/s`;
-  document.querySelector(
-    "#humidity"
-  ).innerHTML = `${response.data.main.humidity}%`;
-  document.querySelector(
-    ".today-description"
-  ).innerHTML = `${response.data.weather[0].main}`;
+  document.querySelector("#humidity").innerHTML = `${response.data.main.humidity}%`;
+  document.querySelector(".today-description").innerHTML = `${response.data.weather[0].main}`;
 
 }
-
 function search(city) {
   let apiKey = `ecc7fef62a02dbb22a9dbe2d8e3727b7`;
   let urlSearchedCity = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
   axios.get(urlSearchedCity).then(showTodaysWeatherAndCity);
 }
-
 function searchWeather(event) {
   event.preventDefault();
   let city = document.querySelector("#city-input").value.trim().toLowerCase();
@@ -58,28 +48,12 @@ function searchWeather(event) {
 let searchButton = document.querySelector(".search-button");
 searchButton.addEventListener("click", searchWeather);
 
-
-// Feature 5 (current location weather) maybe add FEELS LIKE, MIN TEMP, MAX TEMP
-function showCurrLocTemp(response) {
-  document.querySelector("h2").innerHTML = response.data.name;
-  document.querySelector(".main-temp").innerHTML = `${Math.round(
-    response.data.main.temp
-  )}`;
-  document.querySelector("#wind").innerHTML = `${response.data.wind.speed}m/s`;
-  document.querySelector(
-    "#humidity"
-  ).innerHTML = `${response.data.main.humidity}%`;
-  document.querySelector(
-    ".today-description"
-  ).innerHTML = `${response.data.weather[0].main}`;
-}
-
+// my location
 function handlePosition(position) {
   let key = `ecc7fef62a02dbb22a9dbe2d8e3727b7`;
   let url = `https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&units=metric&appid=${key}`;
-  axios.get(url).then(showCurrLocTemp);
+  axios.get(url).then(showTodaysWeatherAndCity);
 }
-
 function findLocation(event) {
   event.preventDefault();
   navigator.geolocation.getCurrentPosition(handlePosition);
@@ -112,6 +86,7 @@ fLink.addEventListener("click", displayF);
 let cLink = document.querySelector(".c-link");
 cLink.addEventListener("click", displayC);
 
+//always show on load
 search("london");
 
 
