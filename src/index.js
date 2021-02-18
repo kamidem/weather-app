@@ -24,7 +24,7 @@ function formatDate(timestamp) {
 
 
 // display searched city & live weather data
-function showTodaysWeatherAndCity(response) {
+function showTodaysWeather(response) {
   document.querySelector("h2").innerHTML = response.data.name;
   document.querySelector("h5").innerHTML = formatDate(response.data.dt*1000);
   cTemp = response.data.main.temp;
@@ -37,7 +37,7 @@ function showTodaysWeatherAndCity(response) {
 function search(city) {
   let apiKey = `ecc7fef62a02dbb22a9dbe2d8e3727b7`;
   let urlSearchedCity = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
-  axios.get(urlSearchedCity).then(showTodaysWeatherAndCity);
+  axios.get(urlSearchedCity).then(showTodaysWeather);
 }
 function searchWeather(event) {
   event.preventDefault();
@@ -48,11 +48,22 @@ function searchWeather(event) {
 let searchButton = document.querySelector(".search-button");
 searchButton.addEventListener("click", searchWeather);
 
+
+// weather forecast
+
+
+/*`Today, ${day} of ${month} ${tempMax}°/${tempMin}°`
+
+let apiKey = `ecc7fef62a02dbb22a9dbe2d8e3727b7`;
+  let urlSearchedCity = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
+  axios.get(urlSearchedCity).then(showTodaysWeather);
+
+*/
 // my location
 function handlePosition(position) {
   let key = `ecc7fef62a02dbb22a9dbe2d8e3727b7`;
   let url = `https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&units=metric&appid=${key}`;
-  axios.get(url).then(showTodaysWeatherAndCity);
+  axios.get(url).then(showTodaysWeather);
 }
 function findLocation(event) {
   event.preventDefault();
