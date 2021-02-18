@@ -26,7 +26,6 @@ function formatDate(timestamp) {
 // Feature 2&4 (click search button: display searched city & live weather data)
 function showTodaysWeatherAndCity(response) {
   document.querySelector("h2").innerHTML = response.data.name;
-  console.log(response);
   document.querySelector("h5").innerHTML = formatDate(response.data.dt*1000);
   cTemp = response.data.main.temp;
   document.querySelector(".main-temp").innerHTML = `${Math.round(
