@@ -23,6 +23,18 @@ function formatDate(timestamp) {
 }
 
 
+// weather forecast
+//`Today, ${day} of ${month} ${tempMax}°/${tempMin}°`
+function showWeatherForecast(response) {
+  console.log(response);
+}
+
+function getForecastCoords(response) {
+  let key = `ecc7fef62a02dbb22a9dbe2d8e3727b7`;
+  let urlForecast = `https://api.openweathermap.org/data/2.5/onecall?lat=${response.lat}&lon=${response.lon}&appid=${key}&units=metric`;
+  axios.get(urlForecast).then(showWeatherForecast);
+}
+
 // display searched city & live weather data
 function showTodaysWeather(response) {
   document.querySelector("h2").innerHTML = response.data.name;
@@ -32,38 +44,37 @@ function showTodaysWeather(response) {
   document.querySelector("#wind").innerHTML = `${response.data.wind.speed}m/s`;
   document.querySelector("#humidity").innerHTML = `${response.data.main.humidity}%`;
   document.querySelector(".today-description").innerHTML = `${response.data.weather[0].main}`;
+  getForecastCoords(response.data.coord);
+}
+//function turnCityToCoords(response) {
+  //console.log(response)
+  //let urlForecast = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${key}&units=metric`;
+  //axios.get(urlForecast).then(showWeatherForecast);
+//}
 
-}
 function search(city) {
-  let apiKey = `ecc7fef62a02dbb22a9dbe2d8e3727b7`;
-  let urlSearchedCity = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
-  axios.get(urlSearchedCity).then(showTodaysWeather);
+  let key = `ecc7fef62a02dbb22a9dbe2d8e3727b7`;
+  let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${key}`;
+  axios.get(url).then(showTodaysWeather);
 }
-function searchWeather(event) {
+function getSearchedCity(event) {
   event.preventDefault();
   let city = document.querySelector("#city-input").value.trim().toLowerCase();
   search(city);
 }
 
 let searchButton = document.querySelector(".search-button");
-searchButton.addEventListener("click", searchWeather);
+searchButton.addEventListener("click", getSearchedCity);
 
 
-// weather forecast
-
-
-/*`Today, ${day} of ${month} ${tempMax}°/${tempMin}°`
-
-let apiKey = `ecc7fef62a02dbb22a9dbe2d8e3727b7`;
-  let urlSearchedCity = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
-  axios.get(urlSearchedCity).then(showTodaysWeather);
-
-*/
 // my location
 function handlePosition(position) {
   let key = `ecc7fef62a02dbb22a9dbe2d8e3727b7`;
   let url = `https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&units=metric&appid=${key}`;
   axios.get(url).then(showTodaysWeather);
+
+  let urlForecast = `https://https://api.openweathermap.org/data/2.5/onecall?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${key}&units=metric`;
+  axios.get(urlForecast).then(showWeatherForecast);
 }
 function findLocation(event) {
   event.preventDefault();
