@@ -50,26 +50,23 @@ function formatForecastDate(timestamp) {
 
 
 // weather forecast
-//`Today, ${day} of ${month} ${tempMax}°/${tempMin}°`
-
 function showWeatherForecast(response) {
   let forecastElement = document.querySelector(".forecast");
   forecastElement.innerHTML = null;
   let forecast = null;
-  console.log(response.data.daily[0]);
 
   for (let index = 0; index < 6; index++) {
     forecast = response.data.daily[index]; 
+    cTempMaxForecast = Math.round(forecast.temp.max);
+    cTempMinForecast = Math.round(forecast.temp.min);
     forecastElement.innerHTML += `
       <div class="col-2 daily">
-        <p class="daily-date">${formatDay(forecast.dt*1000)}<br>${formatForecastDate(forecast.dt*1000)}</p> 
-        <p class="daily-temp">${Math.round(forecast.temp.max)}°<small>/${Math.round(forecast.temp.min)}°</small></p>
+        <p class="forecast-date">${formatDay(forecast.dt*1000)}<br>${formatForecastDate(forecast.dt*1000)}</p> 
+        <p class="forecast-temp"><span class="forecast-max">${cTempMaxForecast}</span>°<small>/<span class="forecast-min">${cTempMinForecast}</span>°</small></p>
         <img src="http://openweathermap.org/img/wn/${forecast.weather[0].icon}@2x.png" alt="" class="forecast-image">
       </div>`;
   }    
 }
-
-
 function getForecastCoords(response) {
   let key = `ecc7fef62a02dbb22a9dbe2d8e3727b7`;
   let urlForecast = `https://api.openweathermap.org/data/2.5/onecall?lat=${response.lat}&lon=${response.lon}&appid=${key}&units=metric`;
@@ -97,7 +94,13 @@ function showTodaysWeather(response) {
 
 function search(city) {
   let key = `ecc7fef62a02dbb22a9dbe2d8e3727b7`;
-  let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${key}`;
+  let celsius = document.querySelector(".c-link");
+  if (celsius.classList.contains("active")) {
+    units = "metric";
+  } else {
+    units = "imperial";
+  };
+  let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${units}&appid=${key}`;
   axios.get(url).then(showTodaysWeather);
 }
 function getSearchedCity(event) {
@@ -133,23 +136,56 @@ function displayF(event) {
   let tempElement = document.querySelector(".main-temp");
   cLink.classList.remove("active");
   fLink.classList.add("active");
-  let fTemp = (cTemp * 1.8) + 32;
-  tempElement.innerHTML = Math.round(fTemp);
+  tempElement.innerHTML = Math.round((cTemp * 1.8) + 32);
+
+  //display forecast F
+  let forecastMax = document.querySelectorAll(".forecast-max");
+  forecastMax.forEach(function(temp) {
+    maxForecast = temp.innerHTML;
+    temp.innerHTML = Math.round((maxForecast * 9) / 5 + 32);
+  })
+
+  let forecastMin = document.querySelectorAll(".forecast-min");
+  forecastMin.forEach(function(temp) {
+    minForecast = temp.innerHTML;
+    temp.innerHTML = Math.round((minForecast * 9) / 5 + 32);
+  })
+  cLink.addEventListener("click", displayC);
+  fLink.removeEventListener("click", displayF);
 }
 function displayC(event) {
   event.preventDefault();
   let tempElement = document.querySelector(".main-temp");
   cLink.classList.add("active");
   fLink.classList.remove("active");
-  tempElement.innerHTML = Math.round(cTemp);
+  tempElement.innerHTML = Math.round(cTemp); 
+
+  //display forecast C
+  let forecastMax = document.querySelectorAll(".forecast-max");
+  forecastMax.forEach(function(temp) {
+    maxForecast = temp.innerHTML;
+    temp.innerHTML = Math.round(((maxForecast - 32) * 5) / 9);
+  })
+
+  let forecastMin = document.querySelectorAll(".forecast-min");
+  forecastMin.forEach(function(temp) {
+    minForecast = temp.innerHTML;
+    temp.innerHTML = Math.round(((minForecast - 32) * 5) / 9);
+  })
+  fLink.addEventListener("click", displayF);
+  cLink.removeEventListener("click", displayC);
 }
 
-let cTemp = null;
+
 
 let fLink = document.querySelector(".f-link");
 fLink.addEventListener("click", displayF);
 let cLink = document.querySelector(".c-link");
 cLink.addEventListener("click", displayC);
+
+let cTemp = null;
+let maxForecast = null;
+let minForecast = null;
 
 //always show on load
 search("london");
