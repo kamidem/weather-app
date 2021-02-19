@@ -9,7 +9,7 @@ function formatDate(timestamp) {
   if (minute < 10) {
     minute = `0${minute}`;
   }
-  return `Last updated on ${formatDay(timestamp)} ${hour}:${minute}`;
+  return `Last updated: ${formatDay(timestamp)} ${hour}:${minute}`;
 }
 
 function formatDay(timestamp) {
@@ -55,7 +55,7 @@ function showWeatherForecast(response) {
   forecastElement.innerHTML = null;
   let forecast = null;
 
-  for (let index = 0; index < 6; index++) {
+  for (let index = 0; index < 5; index++) {
     forecast = response.data.daily[index]; 
     cTempMaxForecast = Math.round(forecast.temp.max);
     cTempMinForecast = Math.round(forecast.temp.min);
@@ -159,7 +159,6 @@ function displayC(event) {
   cLink.classList.add("active");
   fLink.classList.remove("active");
   tempElement.innerHTML = Math.round(cTemp); 
-
   //display forecast C
   let forecastMax = document.querySelectorAll(".forecast-max");
   forecastMax.forEach(function(temp) {
@@ -176,16 +175,19 @@ function displayC(event) {
   cLink.removeEventListener("click", displayC);
 }
 
-
+let cTemp = null;
+let maxForecast = null;
+let minForecast = null;
 
 let fLink = document.querySelector(".f-link");
 fLink.addEventListener("click", displayF);
 let cLink = document.querySelector(".c-link");
-cLink.addEventListener("click", displayC);
+if (fLink.classList.contains("active")) {
+  cLink.addEventListener("click", displayC);
+}
 
-let cTemp = null;
-let maxForecast = null;
-let minForecast = null;
+
+
 
 //always show on load
 search("london");
