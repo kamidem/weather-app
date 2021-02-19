@@ -9,6 +9,11 @@ function formatDate(timestamp) {
   if (minute < 10) {
     minute = `0${minute}`;
   }
+  return `Last updated on ${formatDay(timestamp)} ${hour}:${minute}`;
+}
+
+function formatDay(timestamp) {
+  let date = new Date(timestamp);
   let weekDays = [
     "Sunday",
     "Monday",
@@ -19,15 +24,51 @@ function formatDate(timestamp) {
     "Saturday"
   ];
   let weekDay = weekDays[date.getDay()];
-  return `Last updated on ${weekDay} ${hour}:${minute}`;
+  return `${weekDay}`
+}
+
+function formatForecastDate(timestamp) {
+  let date = new Date(timestamp);
+  let months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec"
+  ];
+  let month = months[date.getMonth()];
+  let monthDay = date.getDate();
+  return `${monthDay} ${month}`;
 }
 
 
 // weather forecast
 //`Today, ${day} of ${month} ${tempMax}°/${tempMin}°`
+
 function showWeatherForecast(response) {
-  console.log(response);
+  let forecastElement = document.querySelector(".forecast");
+  forecastElement.innerHTML = null;
+  let forecast = null;
+  console.log(response.data.daily[0]);
+
+  for (let index = 0; index < 6; index++) {
+    forecast = response.data.daily[index]; 
+    forecastElement.innerHTML += `
+      <div class="col-2 daily">
+        <p class="daily-date">${formatDay(forecast.dt*1000)}<br>${formatForecastDate(forecast.dt*1000)}</p> 
+        <p class="daily-temp">${Math.round(forecast.temp.max)}°<small>/${Math.round(forecast.temp.min)}°</small></p>
+        <img src="http://openweathermap.org/img/wn/${forecast.weather[0].icon}@2x.png" alt="" class="forecast-image">
+      </div>`;
+  }    
 }
+
 
 function getForecastCoords(response) {
   let key = `ecc7fef62a02dbb22a9dbe2d8e3727b7`;
@@ -45,7 +86,9 @@ function showTodaysWeather(response) {
   document.querySelector("#humidity").innerHTML = `${response.data.main.humidity}%`;
   document.querySelector(".today-description").innerHTML = `${response.data.weather[0].main}`;
   getForecastCoords(response.data.coord);
-}
+  document.querySelector(".today-weather-image").setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`) 
+  document.querySelector(".today-weather-image").setAttribute("alt", `http://openweathermap.org/img/wn/${response.data.weather[0].description}@2x.png`) 
+} 
 //function turnCityToCoords(response) {
   //console.log(response)
   //let urlForecast = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${key}&units=metric`;
