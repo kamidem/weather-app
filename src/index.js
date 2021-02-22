@@ -60,10 +60,10 @@ function showWeatherForecast(response) {
     cTempMaxForecast = Math.round(forecast.temp.max);
     cTempMinForecast = Math.round(forecast.temp.min);
     forecastElement.innerHTML += `
-      <div class="col-2 daily">
-        <p class="forecast-date">${formatDay(forecast.dt*1000)}<br>${formatForecastDate(forecast.dt*1000)}</p> 
-        <p class="forecast-temp"><span class="forecast-max">${cTempMaxForecast}</span>°<small>/<span class="forecast-min">${cTempMinForecast}</span>°</small></p>
-        <img src="http://openweathermap.org/img/wn/${forecast.weather[0].icon}@2x.png" alt="" class="forecast-image">
+      <div class="col daily">
+        <p><span class="daily-weekday">${formatDay(forecast.dt*1000)}</span><br><span class="daily-date">${formatForecastDate(forecast.dt*1000)}</span></p> 
+        <p class="daily-temp"><span class="forecast-max">${cTempMaxForecast}</span>°<small>/<span class="forecast-min"> ${cTempMinForecast}</span>°</small></p>
+        <img src="http://openweathermap.org/img/wn/${forecast.weather[0].icon}@2x.png" alt="" class="daily-image">
       </div>`;
   }    
 }

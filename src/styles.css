@@ -2,8 +2,6 @@ body {
   display: block;
   margin: 0 auto;
   max-width: 800px;
-  /*margin-left: 10%;
-  margin-right: 10%;*/
   font-family: "Montserrat", sans-serif;
 }
 h1 {
@@ -12,8 +10,8 @@ h1 {
   font-weight: 800;
 }
 h2 {
-  margin-top: 10px;
-  margin-bottom: 0;
+  margin: 10px 0 0 20px;
+  font-size: 250%;
 }
 h5 {
   font-size: 14px;
@@ -21,9 +19,18 @@ h5 {
   text-align: right;
 }
 
+.search-container {
+  border: 1px solid black;
+  padding: 1%;
+  margin-bottom: 1%;
+  border-radius: 10px;
+  background: #a7c5eb;
+}
+
 .fa-map-marker-alt {
   color: black;
 }
+
 .search-button,
 .my-location-button {
   background: #f5f7fa;
@@ -32,19 +39,28 @@ h5 {
   transition: all 150ms ease-in-out;
   color: #56769e;
 }
-.search-button:hover {
+.search-button:hover,
+.my-location-button:hover {
   border: 1px solid #a7c5eb;
 }
 
-.top-container {
-  /* CONTINUE HERE*/
-  padding: 0;
-  margin: 0;
-  position: relative;
+.main-body-container {
+  border: 1px solid black;
+  padding: 2%;
+  border-radius: 10px;
+  background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
 }
-
+.top-container {
+  margin-bottom: 5px;
+}
+.today-description {
+  font-size: 120%;
+  margin-top: 5px;
+  margin-left: 23px;
+}
 .main-temp {
   font-size: 650%;
+  margin: 0 0 0 25px;
 }
 .c-link,
 .f-link,
@@ -68,11 +84,7 @@ h5 {
 .today-weather-image {
   display: block;
   margin: 0 auto;
-  width: 180px;
-}
-.today-description {
-  font-size: 120%;
-  margin-top: 5px;
+  width: 140px;
 }
 .weather-details {
   line-height: 30px;
@@ -82,48 +94,41 @@ h5 {
   /*border: 1px solid #56769e;
   padding: 15px;*/
 }
-
-.daily-hourly-container {
-  padding: 0;
-  margin: 30px 0 5px 5px;
-}
-
 .daily {
   border: 1px solid #56769e;
+  text-align: center;
   border-radius: 5px;
   margin: 5px;
+  padding: 5px 15px 0 15px;
   box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
 }
+
 .daily-temp {
-  font-size: 170%;
+  font-size: 180%;
 }
-.daily-date {
-  font-size: 120%;
+.forecast-max {
+  font-weight: 900;
+}
+.forecast-min {
+  font-size: 21px;
+}
+.daily-weekday {
+  font-size: 140%;
+  font-size: 900;
 }
 .daily-image {
-  font-size: 200%;
+  font-size: 150%;
   color: #a7c5eb;
+  width: 80px;
 }
-
-.search-container {
-  border: 1px solid black;
-  padding: 1%;
-  margin-bottom: 1%;
-  border-radius: 10px;
-  background: #a7c5eb;
+.daily-date {
+  font-size: 110%;
 }
-.main-body-container {
-  border: 1px solid black;
-  padding: 2%;
-  border-radius: 10px;
-  background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-}
-
-.forecast {
+/*.forecast {
   text-align: center;
   position: relative;
-  left: 35px;
-}
+}*/
+
 .code-by {
   margin-top: 5px;
 }
