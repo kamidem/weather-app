@@ -97,15 +97,30 @@ function search(city) {
   let celsius = document.querySelector(".c-link");
   if (celsius.classList.contains("active")) {
     units = "metric";
+    cLink.classList.add("active");
+    fLink.classList.remove("active");
+    cLink.removeEventListener("click", displayC);
+    fLink.addEventListener("click", displayF);
   } else {
     units = "imperial";
+    cLink.classList.remove("active");
+    fLink.classList.add("active");
+    cLink.addEventListener("click", displayC);
+    fLink.removeEventListener("click", displayF);
   };
   let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${units}&appid=${key}`;
   axios.get(url).then(showTodaysWeather);
 }
+
+/*cLink.classList.add("active");
+  fLink.classList.remove("active");
+  cLink.addEventListener("click", displayC);
+  fLink.removeEventListener("click", displayF);*/
+
 function getSearchedCity(event) {
   event.preventDefault();
   let city = document.querySelector("#city-input").value.trim().toLowerCase();
+  cLink.classList.add("active");
   search(city);
 }
 
