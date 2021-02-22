@@ -83,44 +83,32 @@ function showTodaysWeather(response) {
   document.querySelector("#humidity").innerHTML = `${response.data.main.humidity}%`;
   document.querySelector(".today-description").innerHTML = `${response.data.weather[0].main}`;
   getForecastCoords(response.data.coord);
-  document.querySelector(".today-weather-image").setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`) 
-  document.querySelector(".today-weather-image").setAttribute("alt", `http://openweathermap.org/img/wn/${response.data.weather[0].description}@2x.png`) 
+  document.querySelector(".today-weather-image").setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`); 
+  document.querySelector(".today-weather-image").setAttribute("alt", `http://openweathermap.org/img/wn/${response.data.weather[0].description}@2x.png`);
+  cLink.classList.add("active");
+  fLink.classList.remove("active");
+  cLink.removeEventListener("click", displayC);
+  fLink.addEventListener("click", displayF); 
+  /*if (celsius.classList.contains("active")) { IMPLEMENT THIS INSTEAD OF THE ABOVE
+    displayC ();
+  } else {
+    displayF ();
+  };*/
 } 
-//function turnCityToCoords(response) {
-  //console.log(response)
-  //let urlForecast = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${key}&units=metric`;
-  //axios.get(urlForecast).then(showWeatherForecast);
-//}
 
 function search(city) {
   let key = `ecc7fef62a02dbb22a9dbe2d8e3727b7`;
   let celsius = document.querySelector(".c-link");
-  if (celsius.classList.contains("active")) {
-    units = "metric";
-    cLink.classList.add("active");
-    fLink.classList.remove("active");
-    cLink.removeEventListener("click", displayC);
-    fLink.addEventListener("click", displayF);
-  } else {
-    units = "imperial";
-    cLink.classList.remove("active");
-    fLink.classList.add("active");
-    cLink.addEventListener("click", displayC);
-    fLink.removeEventListener("click", displayF);
-  };
-  let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${units}&appid=${key}`;
+  let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${key}`;
   axios.get(url).then(showTodaysWeather);
 }
-
-/*cLink.classList.add("active");
-  fLink.classList.remove("active");
-  cLink.addEventListener("click", displayC);
-  fLink.removeEventListener("click", displayF);*/
 
 function getSearchedCity(event) {
   event.preventDefault();
   let city = document.querySelector("#city-input").value.trim().toLowerCase();
-  cLink.classList.add("active");
+  /*cLink.classList.add("active");
+  fLink.classList.remove("active");
+  cLink.removeEventListener("click", displayC);*/
   search(city);
 }
 
@@ -151,6 +139,8 @@ function displayF(event) {
   let tempElement = document.querySelector(".main-temp");
   cLink.classList.remove("active");
   fLink.classList.add("active");
+  cLink.addEventListener("click", displayC);
+  fLink.removeEventListener("click", displayF);
   tempElement.innerHTML = Math.round((cTemp * 1.8) + 32);
 
   //display forecast F
@@ -174,6 +164,8 @@ function displayC(event) {
   cLink.classList.add("active");
   fLink.classList.remove("active");
   tempElement.innerHTML = Math.round(cTemp); 
+
+
   //display forecast C
   let forecastMax = document.querySelectorAll(".forecast-max");
   forecastMax.forEach(function(temp) {
@@ -197,11 +189,6 @@ let minForecast = null;
 let fLink = document.querySelector(".f-link");
 fLink.addEventListener("click", displayF);
 let cLink = document.querySelector(".c-link");
-if (fLink.classList.contains("active")) {
-  cLink.addEventListener("click", displayC);
-}
-
-
 
 
 //always show on load

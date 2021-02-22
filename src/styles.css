@@ -54,14 +54,15 @@ h5 {
   font-size: 20px;
   text-decoration: none;
 }
-.c-link:hover,
-.f-link:hover {
-} /* to update maybe*/
+
 .c-link,
 .f-link {
   color: grey;
 }
 .active {
+  color: black;
+}
+.active:hover {
   color: black;
 }
 .today-weather-image {
