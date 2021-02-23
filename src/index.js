@@ -49,6 +49,22 @@ function formatForecastDate(timestamp) {
 }
 
 
+function formatLocalTime (timestamp) {
+  let date = new Date(timestamp);
+  console.log(date);
+  let hour = date.getHours();
+  if (hour < 10) {
+    hour = `0${hour}`;
+  }
+  let minute = date.getMinutes();
+  if (minute < 10) {
+    minute = `0${minute}`;
+  }  
+  console.log(hour);
+  return `${hour}:${minute}`;
+}  
+
+
 // weather forecast
 function showWeatherForecast(response) {
   let forecastElement = document.querySelector(".forecast");
@@ -75,7 +91,7 @@ function getForecastCoords(response) {
 
 // display searched city & live weather data
 function showTodaysWeather(response) {
-  console.log(response.data);
+  //console.log(response.data.timezone);
   document.querySelector("h2").innerHTML = response.data.name;
   document.querySelector("h5").innerHTML = formatDate(response.data.dt*1000);
   cTemp = response.data.main.temp;
@@ -92,6 +108,9 @@ function showTodaysWeather(response) {
   fLink.classList.remove("active");
   cLink.removeEventListener("click", displayC);
   fLink.addEventListener("click", displayF); 
+
+  let localTimestamp = ((response.data.dt + response.data.timezone) * 1000);
+  document.querySelector(".local-time").innerHTML = `${formatLocalTime(localTimestamp)}`;
   /*if (celsius.classList.contains("active")) { IMPLEMENT THIS INSTEAD OF THE ABOVE
     displayC ();
   } else {
