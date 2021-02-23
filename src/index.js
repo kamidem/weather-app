@@ -75,10 +75,13 @@ function getForecastCoords(response) {
 
 // display searched city & live weather data
 function showTodaysWeather(response) {
+  console.log(response.data);
   document.querySelector("h2").innerHTML = response.data.name;
   document.querySelector("h5").innerHTML = formatDate(response.data.dt*1000);
   cTemp = response.data.main.temp;
   document.querySelector(".main-temp").innerHTML = `${Math.round(cTemp)}`;
+  feelsLikeTemp = response.data.main.feels_like;
+  document.querySelector(".feels-like").innerHTML = `${Math.round(feelsLikeTemp)}`
   document.querySelector("#wind").innerHTML = `${response.data.wind.speed}m/s`;
   document.querySelector("#humidity").innerHTML = `${response.data.main.humidity}%`;
   document.querySelector(".today-description").innerHTML = `${response.data.weather[0].main}`;
@@ -137,11 +140,13 @@ locationButton.addEventListener("click", findLocation);
 function displayF(event) {
   event.preventDefault();
   let tempElement = document.querySelector(".main-temp");
+  let feelsLikeElement = document.querySelector(".feels-like");
   cLink.classList.remove("active");
   fLink.classList.add("active");
   cLink.addEventListener("click", displayC);
   fLink.removeEventListener("click", displayF);
   tempElement.innerHTML = Math.round((cTemp * 1.8) + 32);
+  feelsLikeElement.innerHTML = Math.round((feelsLikeTemp * 1.8) + 32);
 
   //display forecast F
   let forecastMax = document.querySelectorAll(".forecast-max");
@@ -161,9 +166,11 @@ function displayF(event) {
 function displayC(event) {
   event.preventDefault();
   let tempElement = document.querySelector(".main-temp");
+  let feelsLikeElement = document.querySelector(".feels-like");
   cLink.classList.add("active");
   fLink.classList.remove("active");
   tempElement.innerHTML = Math.round(cTemp); 
+  feelsLikeElement.innerHTML = Math.round(feelsLikeTemp);
 
 
   //display forecast C
@@ -183,6 +190,7 @@ function displayC(event) {
 }
 
 let cTemp = null;
+let feelsLikeTemp = null;
 let maxForecast = null;
 let minForecast = null;
 
