@@ -51,7 +51,6 @@ function formatForecastDate(timestamp) {
 
 function formatLocalTime (timestamp) {
   let date = new Date(timestamp);
-  console.log(date);
   let hour = date.getHours();
   if (hour < 10) {
     hour = `0${hour}`;
@@ -60,14 +59,15 @@ function formatLocalTime (timestamp) {
   if (minute < 10) {
     minute = `0${minute}`;
   }  
-  console.log(hour);
   return `${hour}:${minute}`;
 }  
 
 
 // weather forecast
+
+//daily forecast
 function showWeatherForecast(response) {
-  let forecastElement = document.querySelector(".forecast");
+  let forecastElement = document.querySelector(".daily-forecast");
   forecastElement.innerHTML = null;
   let forecast = null;
 
@@ -81,13 +81,29 @@ function showWeatherForecast(response) {
         <p class="daily-temp"><span class="forecast-max">${cTempMaxForecast}</span>°<small>/<span class="forecast-min"> ${cTempMinForecast}</span>°</small></p>
         <img src="http://openweathermap.org/img/wn/${forecast.weather[0].icon}@2x.png" alt="" class="daily-image">
       </div>`;
-  }    
+  }
+  let hourlyForecastElement = document.querySelector(".hourly-forecast");
+  hourlyForecastElement.innerHTML = null;  
+  let hourlyForecast = null;  
+  for (let index = 0; index < 4; index++) {
+    hourlyForecast = response.data.hourly[index+1]; 
+    tempForecast = Math.round(hourlyForecast.temp);
+    hourlyForecastElement.innerHTML += `
+      <div class="hourly-each">
+              ${formatLocalTime((hourlyForecast.dt + response.data.timezone_offset) *1000)} 
+              <img src="http://openweathermap.org/img/wn/${hourlyForecast.weather[0].icon}@2x.png" alt="" class="hourly-image"> <spam class="hourly-temp">${tempForecast}</spam>°
+            </div>`;
+  }  
+
+
+
 }
 function getForecastCoords(response) {
   let key = `ecc7fef62a02dbb22a9dbe2d8e3727b7`;
   let urlForecast = `https://api.openweathermap.org/data/2.5/onecall?lat=${response.lat}&lon=${response.lon}&appid=${key}&units=metric`;
   axios.get(urlForecast).then(showWeatherForecast);
 }
+
 
 // display searched city & live weather data
 function showTodaysWeather(response) {
@@ -179,6 +195,11 @@ function displayF(event) {
     minForecast = temp.innerHTML;
     temp.innerHTML = Math.round((minForecast * 9) / 5 + 32);
   })
+  let hourlyForecast = document.querySelectorAll(".hourly-temp");
+  hourlyForecast.forEach(function(temp) {
+    forecastH = temp.innerHTML;
+    temp.innerHTML = Math.round((forecastH * 9) / 5 + 32);
+  })
   cLink.addEventListener("click", displayC);
   fLink.removeEventListener("click", displayF);
 }
@@ -204,6 +225,11 @@ function displayC(event) {
     minForecast = temp.innerHTML;
     temp.innerHTML = Math.round(((minForecast - 32) * 5) / 9);
   })
+  let hourlyForecast = document.querySelectorAll(".hourly-temp");
+  hourlyForecast.forEach(function(temp) {
+    forecastH = temp.innerHTML;
+    temp.innerHTML = Math.round(((forecastH - 32) * 5) / 9);
+  })
   fLink.addEventListener("click", displayF);
   cLink.removeEventListener("click", displayC);
 }
@@ -212,6 +238,7 @@ let cTemp = null;
 let feelsLikeTemp = null;
 let maxForecast = null;
 let minForecast = null;
+let forecastH = null;
 
 let fLink = document.querySelector(".f-link");
 fLink.addEventListener("click", displayF);

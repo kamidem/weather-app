@@ -22,7 +22,9 @@ hr {
   display: block;
   margin: 0 auto;
   margin-right: 0;
-  width: 80%;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  width: 70%;
 }
 
 .search-container {
@@ -109,6 +111,10 @@ hr {
 .hourly-each {
   line-height: 35px;
   text-align: right;
+}
+.hourly-image {
+  width: 40px;
+  margin: 0 10px;
 }
 
 .daily {
