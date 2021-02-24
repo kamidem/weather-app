@@ -70,6 +70,7 @@ function showWeatherForecast(response) {
   let forecastElement = document.querySelector(".daily-forecast");
   forecastElement.innerHTML = null;
   let forecast = null;
+  console.log(response);
 
   for (let index = 0; index < 5; index++) {
     forecast = response.data.daily[index]; 
@@ -78,7 +79,7 @@ function showWeatherForecast(response) {
     forecastElement.innerHTML += `
       <div class="col daily">
         <p><span class="daily-weekday">${formatDay(forecast.dt*1000)}</span><br><span class="daily-date">${formatForecastDate(forecast.dt*1000)}</span></p> 
-        <p class="daily-temp"><span class="forecast-max">${cTempMaxForecast}</span>°<small>/<span class="forecast-min"> ${cTempMinForecast}</span>°</small></p>
+        <p class="daily-temp"><span class="forecast-max">${cTempMaxForecast}</span>°<small>/</small><span class="forecast-min"> ${cTempMinForecast}</span>°</p>
         <img src="http://openweathermap.org/img/wn/${forecast.weather[0].icon}@2x.png" alt="" class="daily-image">
       </div>`;
   }
@@ -113,9 +114,9 @@ function showTodaysWeather(response) {
   cTemp = response.data.main.temp;
   document.querySelector(".main-temp").innerHTML = `${Math.round(cTemp)}`;
   feelsLikeTemp = response.data.main.feels_like;
-  document.querySelector(".feels-like").innerHTML = `${Math.round(feelsLikeTemp)}`
-  document.querySelector("#wind").innerHTML = `${Math.round((response.data.wind.speed)*18/5)} km/h`;
-  document.querySelector("#humidity").innerHTML = `${response.data.main.humidity}%`;
+  document.querySelector(".feels-like").innerHTML = `${Math.round(feelsLikeTemp)}°`
+  document.querySelector("#wind").innerHTML = `${Math.round((response.data.wind.speed)*18/5)}`;
+  document.querySelector("#humidity").innerHTML = `${response.data.main.humidity}`;
   document.querySelector(".today-description").innerHTML = `${response.data.weather[0].main}`;
   getForecastCoords(response.data.coord);
   document.querySelector(".today-weather-image").setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`); 

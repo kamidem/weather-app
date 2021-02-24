@@ -26,9 +26,12 @@ hr {
   margin-bottom: 5px;
   width: 70%;
 }
+p {
+  margin-bottom: 10px;
+}
 
 .search-container {
-  border: 1px solid black;
+  /*border: 1px solid black;*/
   padding: 1%;
   margin-bottom: 1%;
   border-radius: 10px;
@@ -54,10 +57,11 @@ hr {
 }
 
 .main-body-container {
-  border: 1px solid black;
+  /*border: 1px solid black;*/
   padding: 2%;
   border-radius: 10px;
-  background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  /*background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);*/
+  background-image: linear-gradient(to top, #e7f0fd 0%, #accbee 100%);
 }
 .top-container {
   margin-bottom: 5px;
@@ -93,22 +97,31 @@ hr {
 .today-weather-image {
   display: block;
   margin: 0 auto;
-  width: 140px;
+  width: 130px;
+  margin-top: 30px;
 }
 .weather-details {
-  line-height: 27px;
+  line-height: 22px;
   margin: 0;
   padding: 0;
   text-align: center;
-  font-size: 14px;
+  font-size: 13px;
   /*border: 1px solid #56769e;
   padding: 15px;*/
 }
+.feels-like,
+#wind,
+#humidity {
+  font-size: 14px;
+}
 .local-time-line {
   text-align: right;
+  font-size: 18px;
 }
 .local-time {
-  font-size: 18px;
+  padding: 1px 8px;
+  background-color: #e7f0fd;
+  border-radius: 15px;
 }
 .hourly-each {
   line-height: 35px;
@@ -120,34 +133,32 @@ hr {
 }
 
 .daily {
-  border: 1px solid #56769e;
+  /*border: 1px solid #56769e;*/
   text-align: center;
   border-radius: 5px;
   margin: 5px;
   padding: 5px 15px 0 15px;
   box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
 }
-
-.daily-temp {
-  font-size: 180%;
-}
 .forecast-max {
-  font-weight: 900;
+  font-size: 22px;
 }
 .forecast-min {
-  font-size: 21px;
+  font-size: 19px;
+}
+.daily-temp {
+  margin-bottom: 0;
 }
 .daily-weekday {
-  font-size: 140%;
-  font-size: 900;
+  font-size: 19px;
 }
 .daily-image {
   font-size: 150%;
   color: #a7c5eb;
-  width: 80px;
+  width: 70px;
 }
 .daily-date {
-  font-size: 110%;
+  font-size: 14px;
 }
 /*.forecast {
   text-align: center;
@@ -156,4 +167,5 @@ hr {
 
 .code-by {
   margin-top: 5px;
+  font-size: 12px;
 }
