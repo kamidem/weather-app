@@ -144,9 +144,6 @@ function search(city) {
 function getSearchedCity(event) {
   event.preventDefault();
   let city = document.querySelector("#city-input").value.trim().toLowerCase();
-  /*cLink.classList.add("active");
-  fLink.classList.remove("active");
-  cLink.removeEventListener("click", displayC);*/
   search(city);
 }
 
@@ -249,19 +246,6 @@ let cLink = document.querySelector(".c-link");
 search("london");
 
 
-
-
-
-  // add feels like on the app
-  //let feelsLike = document.querySelector("#feels-like");
-  //feelsLike.innerHTML = `${Math.round(response.data.main.feels_like)}°C`;
-  //console.log(Math.round(response.data.main.feels_like))
-
-  //add min, max temp to the app
-  /*let maxTemp = document.querySelector("#max-temp");
-  maxTemp.innerHTML = `${Math.round(response.data.main.temp_max)}°C`
-  let minTemp = document.querySelector("#min-temp");
-  maxTemp.innerHTML = `${Math.round(response.data.main.temp_min)}°C`*/
 
 
 
