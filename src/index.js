@@ -114,7 +114,7 @@ function showTodaysWeather(response) {
   document.querySelector(".main-temp").innerHTML = `${Math.round(cTemp)}`;
   feelsLikeTemp = response.data.main.feels_like;
   document.querySelector(".feels-like").innerHTML = `${Math.round(feelsLikeTemp)}`
-  document.querySelector("#wind").innerHTML = `${response.data.wind.speed}m/s`;
+  document.querySelector("#wind").innerHTML = `${Math.round((response.data.wind.speed)*18/5)} km/h`;
   document.querySelector("#humidity").innerHTML = `${response.data.main.humidity}%`;
   document.querySelector(".today-description").innerHTML = `${response.data.weather[0].main}`;
   getForecastCoords(response.data.coord);
@@ -160,7 +160,7 @@ function handlePosition(position) {
   let url = `https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&units=metric&appid=${key}`;
   axios.get(url).then(showTodaysWeather);
 
-  let urlForecast = `https://https://api.openweathermap.org/data/2.5/onecall?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${key}&units=metric`;
+  let urlForecast = `https://api.openweathermap.org/data/2.5/onecall?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${key}&units=metric`;
   axios.get(urlForecast).then(showWeatherForecast);
 }
 function findLocation(event) {
