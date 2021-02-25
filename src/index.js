@@ -108,10 +108,11 @@ function showWeatherForecast(response) {
     tempForecast = Math.round(hourlyForecast.temp);
     hourlyForecastElement.innerHTML += `
       <div class="hourly-each">
-              ${formatLocalTime((hourlyForecast.dt + response.data.timezone_offset) * 1000)} 
+              ${formatHourlyLocalTimestamp(hourlyForecast.dt  * 1000)} 
               <img src="http://openweathermap.org/img/wn/${hourlyForecast.weather[0].icon}@2x.png" alt="" class="hourly-image"> <spam class="hourly-temp">${tempForecast}</spam>°
             </div>`;
-
+ //${formatLocalTime((hourlyForecast.dt + response.data.timezone_offset) * 1000)}
+  
     //let date = new Date ();        
     //let utcTime = date.getTime(); 
     //+ (date.getTimezoneOffset() * 1000));
@@ -120,12 +121,44 @@ function showWeatherForecast(response) {
     //let timezoneOffset = date.getTimezoneOffset();
     //console.log(localTimestamp);
     //vietinisLaikas = tavoTime - utc
+    
+      let date = new Date();
+      let localTime = date.getTime();
+      let localOffset = date.getTimezoneOffset() * 60000;
+      let utc = localTime + localOffset;
+      var location = utc + (1000 * response.data.timezone_offset);
+      
+    function formatHourlyLocalTimestamp(timestamp) {
+      let date = new Date(timestamp);
+      let localTime = date.getTime();
+      let localOffset = date.getTimezoneOffset() * 60000;
+      let utc = localTime + localOffset;
+      var location = utc + (1000 * response.data.timezone_offset);
+    
 
-     let date = new Date();
-    let localTime = date.getTime();
-    let localOffset = date.getTimezoneOffset() * 60000;
-    let utc = localTime + localOffset;
-    var location = utc + (1000 * response.data.timezone_offset);
+      function formatTime (timestamp) {
+        let date = new Date(timestamp);
+        let hour = date.getHours();
+        if (hour < 10) {
+          hour = `0${hour}`;
+        }
+        let minute = date.getMinutes();
+        if (minute < 10) {
+          minute = `0${minute}`;
+        }  
+        return `${hour}:${minute}`;
+        
+      } 
+
+
+
+
+      return formatTime(location);
+    }
+    
+    
+      
+   
     //localTimestamp = new Date(location)
     //localTimestamp = ((response.data.current.dt + response.data.timezone_offset) * 1000);
     document.querySelector(".local-time").innerHTML = `${formatLocalTime(location)}`;
@@ -142,10 +175,8 @@ function showWeatherForecast(response) {
   console.log()
   */
 
-
-
-
 }
+
 function getForecastCoords(response) {
   let key = `ecc7fef62a02dbb22a9dbe2d8e3727b7`;
   let urlForecast = `https://api.openweathermap.org/data/2.5/onecall?lat=${response.lat}&lon=${response.lon}&appid=${key}&units=metric`;
