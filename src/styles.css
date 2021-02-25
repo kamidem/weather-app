@@ -45,8 +45,9 @@ p {
 
 .search-button,
 .my-location-button {
-  background: #f5f7fa;
-  border: 1px solid #56769e;
+  background: whites;
+  border: none;
+  /*border: 1px solid #56769e;*/
   border-radius: 5px;
   transition: all 150ms ease-in-out;
   color: #56769e;

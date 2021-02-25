@@ -112,7 +112,14 @@ function showWeatherForecast(response) {
               <img src="http://openweathermap.org/img/wn/${hourlyForecast.weather[0].icon}@2x.png" alt="" class="hourly-image"> <spam class="hourly-temp">${tempForecast}</spam>°
             </div>`;
 
-    localTimestamp = ((response.data.current.dt + response.data.timezone_offset) * 1000);
+    let date = new Date ((response.data.current.dt*1000));        
+    let utcTime = (date.getTime() - (date.getTimezoneOffset() * 1000));
+    localTimestamp = utcTime + (response.data.timezone_offset * 1000);
+    
+    //let timezoneOffset = date.getTimezoneOffset();
+    console.log(localTimestamp);
+    //vietinisLaikas = tavoTime - utc
+    //localTimestamp = ((response.data.current.dt + response.data.timezone_offset) * 1000);
     document.querySelector(".local-time").innerHTML = `${formatLocalTime(localTimestamp)}`;
   }  
 
@@ -152,7 +159,7 @@ function showTodaysWeather(response) {
   //let localTime = formatLocalTime(response.data.dt);
   //console.log(localTime);
   //let timezoneOffset = date
-  console.log(response.data)
+
 
 
 
