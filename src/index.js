@@ -51,12 +51,6 @@ function formatForecastDate(timestamp) {
 
 function formatLocalTime (timestamp) {
   let date = new Date(timestamp);
-  /*let timezoneOffset = date.getTimezoneOffset();
-  let utc = date.getTime() + timezoneOffset;
-  let localTime = utc + (1000 * timezoneOffset);
-  let newDate = new Date (localTime);
-  console.log(timezoneOffset);
-  console.log(localTime);*/
   let hour = date.getHours();
   if (hour < 10) {
     hour = `0${hour}`;
@@ -68,15 +62,6 @@ function formatLocalTime (timestamp) {
   return `${hour}:${minute}`;
   
 }  
-
-/*
-  d = new Date()
-  localTime = d.getTime()
-  localOffset = d.getTimezoneOffset() * 60000
-  utc = localTime + localOffset
-  var atlanta = utc + (1000 * -14400)
-  nd = new Date(atlanta)
-  */
 
 
 
@@ -111,17 +96,7 @@ function showWeatherForecast(response) {
               ${formatHourlyLocalTimestamp(hourlyForecast.dt  * 1000)} 
               <img src="http://openweathermap.org/img/wn/${hourlyForecast.weather[0].icon}@2x.png" alt="" class="hourly-image"> <spam class="hourly-temp">${tempForecast}</spam>°
             </div>`;
- //${formatLocalTime((hourlyForecast.dt + response.data.timezone_offset) * 1000)}
-  
-    //let date = new Date ();        
-    //let utcTime = date.getTime(); 
-    //+ (date.getTimezoneOffset() * 1000));
-    //localTimestamp = (response.data.current.dt + response.data.timezone_offset - (date.getTimezoneOffset() * 60));
-    
-    //let timezoneOffset = date.getTimezoneOffset();
-    //console.log(localTimestamp);
-    //vietinisLaikas = tavoTime - utc
-    
+ 
       let date = new Date();
       let localTime = date.getTime();
       let localOffset = date.getTimezoneOffset() * 60000;
@@ -134,34 +109,12 @@ function showWeatherForecast(response) {
       let localOffset = date.getTimezoneOffset() * 60000;
       let utc = localTime + localOffset;
       var location = utc + (1000 * response.data.timezone_offset);
-    
-
-  
-
-
-
 
       return formatLocalTime(location);
     }
     
-    
-      
-   
-    //localTimestamp = new Date(location)
-    //localTimestamp = ((response.data.current.dt + response.data.timezone_offset) * 1000);
     document.querySelector(".local-time").innerHTML = `${formatLocalTime(location)}`;
   }  
-
-
-  /*
-  date = new Date();
-  localTime = date.getTime();
-  localOffset = date.getTimezoneOffset() * 60000;
-  utc = localTime + localOffset;
-  var location = utc + (1000 * response.data.timezone_offset);
-  localTimestamp = new Date(location)
-  console.log()
-  */
 
 }
 
@@ -192,22 +145,11 @@ function showTodaysWeather(response) {
   cLink.removeEventListener("click", displayC);
   fLink.addEventListener("click", displayF); 
 
-  
-  //let localTime = formatLocalTime(response.data.dt);
-  //console.log(localTime);
-  //let timezoneOffset = date
-
-
-
-
-
   /*if (celsius.classList.contains("active")) { IMPLEMENT THIS INSTEAD OF THE ABOVE
     displayC ();
   } else {
     displayF ();
   };*/
-
-  
 
 } 
 
