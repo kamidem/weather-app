@@ -51,16 +51,17 @@ function formatForecastDate(timestamp) {
 
 function formatLocalTime (timestamp) {
   let date = new Date(timestamp);
-  let timezoneOffset = date.getTimezoneOffset() * 6000;
+  /*let timezoneOffset = date.getTimezoneOffset();
   let utc = date.getTime() + timezoneOffset;
   let localTime = utc + (1000 * timezoneOffset);
   let newDate = new Date (localTime);
   console.log(timezoneOffset);
-  let hour = newDate.getHours();
+  console.log(localTime);*/
+  let hour = date.getHours();
   if (hour < 10) {
     hour = `0${hour}`;
   }
-  let minute = newDate.getMinutes();
+  let minute = date.getMinutes();
   if (minute < 10) {
     minute = `0${minute}`;
   }  
@@ -86,7 +87,7 @@ function showWeatherForecast(response) {
   let forecastElement = document.querySelector(".daily-forecast");
   forecastElement.innerHTML = null;
   let forecast = null;
-  //console.log(response);
+  console.log(response);
 
   for (let index = 0; index < 5; index++) {
     forecast = response.data.daily[index]; 
@@ -110,6 +111,9 @@ function showWeatherForecast(response) {
               ${formatLocalTime((hourlyForecast.dt + response.data.timezone_offset) *1000)} 
               <img src="http://openweathermap.org/img/wn/${hourlyForecast.weather[0].icon}@2x.png" alt="" class="hourly-image"> <spam class="hourly-temp">${tempForecast}</spam>°
             </div>`;
+
+    localTimestamp = ((response.data.current.dt + response.data.timezone_offset) * 1000);
+    document.querySelector(".local-time").innerHTML = `${formatLocalTime(localTimestamp)}`;
   }  
 
 
@@ -148,8 +152,8 @@ function showTodaysWeather(response) {
   //let localTime = formatLocalTime(response.data.dt);
   //console.log(localTime);
   //let timezoneOffset = date
-  //let localTimestamp = ((response.data.dt + response.data.timezone) * 1000);
-  document.querySelector(".local-time").innerHTML = `${formatLocalTime(response.data.dt)}`;
+  console.log(response.data)
+
 
 
 
