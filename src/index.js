@@ -51,16 +51,32 @@ function formatForecastDate(timestamp) {
 
 function formatLocalTime (timestamp) {
   let date = new Date(timestamp);
-  let hour = date.getHours();
+  let timezoneOffset = date.getTimezoneOffset() * 6000;
+  let utc = date.getTime() + timezoneOffset;
+  let localTime = utc + (1000 * timezoneOffset);
+  let newDate = new Date (localTime);
+  console.log(timezoneOffset);
+  let hour = newDate.getHours();
   if (hour < 10) {
     hour = `0${hour}`;
   }
-  let minute = date.getMinutes();
+  let minute = newDate.getMinutes();
   if (minute < 10) {
     minute = `0${minute}`;
   }  
   return `${hour}:${minute}`;
+  
 }  
+
+/*
+  d = new Date()
+  localTime = d.getTime()
+  localOffset = d.getTimezoneOffset() * 60000
+  utc = localTime + localOffset
+  var atlanta = utc + (1000 * -14400)
+  nd = new Date(atlanta)
+  */
+
 
 
 // weather forecast
@@ -70,7 +86,7 @@ function showWeatherForecast(response) {
   let forecastElement = document.querySelector(".daily-forecast");
   forecastElement.innerHTML = null;
   let forecast = null;
-  console.log(response);
+  //console.log(response);
 
   for (let index = 0; index < 5; index++) {
     forecast = response.data.daily[index]; 
@@ -98,6 +114,8 @@ function showWeatherForecast(response) {
 
 
 
+
+
 }
 function getForecastCoords(response) {
   let key = `ecc7fef62a02dbb22a9dbe2d8e3727b7`;
@@ -108,7 +126,7 @@ function getForecastCoords(response) {
 
 // display searched city & live weather data
 function showTodaysWeather(response) {
-  //console.log(response.data.timezone);
+  //console.log(response);
   document.querySelector("h2").innerHTML = response.data.name;
   document.querySelector("h5").innerHTML = formatDate(response.data.dt*1000);
   cTemp = response.data.main.temp;
@@ -126,13 +144,23 @@ function showTodaysWeather(response) {
   cLink.removeEventListener("click", displayC);
   fLink.addEventListener("click", displayF); 
 
-  let localTimestamp = ((response.data.dt + response.data.timezone) * 1000);
-  document.querySelector(".local-time").innerHTML = `${formatLocalTime(localTimestamp)}`;
+  
+  //let localTime = formatLocalTime(response.data.dt);
+  //console.log(localTime);
+  //let timezoneOffset = date
+  //let localTimestamp = ((response.data.dt + response.data.timezone) * 1000);
+  document.querySelector(".local-time").innerHTML = `${formatLocalTime(response.data.dt)}`;
+
+
+
   /*if (celsius.classList.contains("active")) { IMPLEMENT THIS INSTEAD OF THE ABOVE
     displayC ();
   } else {
     displayF ();
   };*/
+
+  
+
 } 
 
 function search(city) {
