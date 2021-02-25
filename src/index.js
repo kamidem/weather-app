@@ -1,5 +1,6 @@
 // current time & day of the week
-function formatDate(timestamp) {
+
+function formatTime (timestamp) {
   let date = new Date(timestamp);
   let hour = date.getHours();
   if (hour < 10) {
@@ -8,8 +9,9 @@ function formatDate(timestamp) {
   let minute = date.getMinutes();
   if (minute < 10) {
     minute = `0${minute}`;
-  }
-  return `Last updated: ${formatDay(timestamp)} ${hour}:${minute}`;
+  }  
+  return `${hour}:${minute}`;
+  
 }
 
 function formatDay(timestamp) {
@@ -49,19 +51,7 @@ function formatForecastDate(timestamp) {
 }
 
 
-function formatLocalTime (timestamp) {
-  let date = new Date(timestamp);
-  let hour = date.getHours();
-  if (hour < 10) {
-    hour = `0${hour}`;
-  }
-  let minute = date.getMinutes();
-  if (minute < 10) {
-    minute = `0${minute}`;
-  }  
-  return `${hour}:${minute}`;
   
-}  
 
 
 
@@ -110,10 +100,10 @@ function showWeatherForecast(response) {
       let utc = localTime + localOffset;
       var location = utc + (1000 * response.data.timezone_offset);
 
-      return formatLocalTime(location);
+      return formatTime(location);
     }
     
-    document.querySelector(".local-time").innerHTML = `${formatLocalTime(location)}`;
+    document.querySelector(".local-time").innerHTML = `${formatTime(location)}`;
   }  
 
 }
@@ -129,11 +119,11 @@ function getForecastCoords(response) {
 function showTodaysWeather(response) {
   //console.log(response);
   document.querySelector("h2").innerHTML = response.data.name;
-  document.querySelector("h5").innerHTML = formatDate(response.data.dt*1000);
+  document.querySelector("h5").innerHTML = `Last updated: ${formatDay(response.data.dt*1000)} ${formatTime(response.data.dt*1000)}`;
   cTemp = response.data.main.temp;
   document.querySelector(".main-temp").innerHTML = `${Math.round(cTemp)}`;
   feelsLikeTemp = response.data.main.feels_like;
-  document.querySelector(".feels-like").innerHTML = `${Math.round(feelsLikeTemp)}°`
+  document.querySelector(".feels-like").innerHTML = `${Math.round(feelsLikeTemp)}`
   document.querySelector("#wind").innerHTML = `${Math.round((response.data.wind.speed)*18/5)}`;
   document.querySelector("#humidity").innerHTML = `${response.data.main.humidity}`;
   document.querySelector(".today-description").innerHTML = `${response.data.weather[0].main}`;
