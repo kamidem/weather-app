@@ -108,7 +108,7 @@ function showWeatherForecast(response) {
     tempForecast = Math.round(hourlyForecast.temp);
     hourlyForecastElement.innerHTML += `
       <div class="hourly-each">
-              ${formatLocalTime((hourlyForecast.dt + response.data.timezone_offset) *1000)} 
+              ${formatLocalTime((hourlyForecast.dt + response.data.timezone_offset) * 1000)} 
               <img src="http://openweathermap.org/img/wn/${hourlyForecast.weather[0].icon}@2x.png" alt="" class="hourly-image"> <spam class="hourly-temp">${tempForecast}</spam>°
             </div>`;
 
