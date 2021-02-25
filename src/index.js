@@ -136,24 +136,12 @@ function showWeatherForecast(response) {
       var location = utc + (1000 * response.data.timezone_offset);
     
 
-      function formatTime (timestamp) {
-        let date = new Date(timestamp);
-        let hour = date.getHours();
-        if (hour < 10) {
-          hour = `0${hour}`;
-        }
-        let minute = date.getMinutes();
-        if (minute < 10) {
-          minute = `0${minute}`;
-        }  
-        return `${hour}:${minute}`;
-        
-      } 
+  
 
 
 
 
-      return formatTime(location);
+      return formatLocalTime(location);
     }
     
     
