@@ -87,7 +87,7 @@ function showWeatherForecast(response) {
   let forecastElement = document.querySelector(".daily-forecast");
   forecastElement.innerHTML = null;
   let forecast = null;
-  console.log(response);
+  //console.log(response);
 
   for (let index = 0; index < 5; index++) {
     forecast = response.data.daily[index]; 
@@ -112,17 +112,35 @@ function showWeatherForecast(response) {
               <img src="http://openweathermap.org/img/wn/${hourlyForecast.weather[0].icon}@2x.png" alt="" class="hourly-image"> <spam class="hourly-temp">${tempForecast}</spam>°
             </div>`;
 
-    let date = new Date ((response.data.current.dt*1000));        
-    let utcTime = (date.getTime() - (date.getTimezoneOffset() * 1000));
-    localTimestamp = utcTime + (response.data.timezone_offset * 1000);
+    //let date = new Date ();        
+    //let utcTime = date.getTime(); 
+    //+ (date.getTimezoneOffset() * 1000));
+    //localTimestamp = (response.data.current.dt + response.data.timezone_offset - (date.getTimezoneOffset() * 60));
     
     //let timezoneOffset = date.getTimezoneOffset();
-    console.log(localTimestamp);
+    //console.log(localTimestamp);
     //vietinisLaikas = tavoTime - utc
+
+     let date = new Date();
+    let localTime = date.getTime();
+    let localOffset = date.getTimezoneOffset() * 60000;
+    let utc = localTime + localOffset;
+    var location = utc + (1000 * response.data.timezone_offset);
+    //localTimestamp = new Date(location)
     //localTimestamp = ((response.data.current.dt + response.data.timezone_offset) * 1000);
-    document.querySelector(".local-time").innerHTML = `${formatLocalTime(localTimestamp)}`;
+    document.querySelector(".local-time").innerHTML = `${formatLocalTime(location)}`;
   }  
 
+
+  /*
+  date = new Date();
+  localTime = date.getTime();
+  localOffset = date.getTimezoneOffset() * 60000;
+  utc = localTime + localOffset;
+  var location = utc + (1000 * response.data.timezone_offset);
+  localTimestamp = new Date(location)
+  console.log()
+  */
 
 
 
