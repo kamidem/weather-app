@@ -11,7 +11,6 @@ function formatTime (timestamp) {
     minute = `0${minute}`;
   }  
   return `${hour}:${minute}`;
-  
 }
 
 function formatDay(timestamp) {
@@ -51,10 +50,6 @@ function formatForecastDate(timestamp) {
 }
 
 
-  
-
-
-
 // weather forecast
 
 //daily forecast
@@ -62,7 +57,6 @@ function showWeatherForecast(response) {
   let forecastElement = document.querySelector(".daily-forecast");
   forecastElement.innerHTML = null;
   let forecast = null;
-  //console.log(response);
 
   for (let index = 0; index < 5; index++) {
     forecast = response.data.daily[index]; 
@@ -83,7 +77,7 @@ function showWeatherForecast(response) {
     tempForecast = Math.round(hourlyForecast.temp);
     hourlyForecastElement.innerHTML += `
       <div class="hourly-each">
-              ${formatHourlyLocalTimestamp(hourlyForecast.dt  * 1000)} 
+              <span class="hourly-hour">${formatHourlyLocalTimestamp(hourlyForecast.dt  * 1000)}</span> 
               <img src="http://openweathermap.org/img/wn/${hourlyForecast.weather[0].icon}@2x.png" alt="" class="hourly-image"> <spam class="hourly-temp">${tempForecast}</spam>°
             </div>`;
  
@@ -99,13 +93,10 @@ function showWeatherForecast(response) {
       let localOffset = date.getTimezoneOffset() * 60000;
       let utc = localTime + localOffset;
       var location = utc + (1000 * response.data.timezone_offset);
-
       return formatTime(location);
     }
-    
     document.querySelector(".local-time").innerHTML = `${formatTime(location)}`;
   }  
-
 }
 
 function getForecastCoords(response) {
@@ -117,7 +108,6 @@ function getForecastCoords(response) {
 
 // display searched city & live weather data
 function showTodaysWeather(response) {
-  //console.log(response);
   document.querySelector("h2").innerHTML = response.data.name;
   document.querySelector("h5").innerHTML = `Last updated: ${formatDay(response.data.dt*1000)} ${formatTime(response.data.dt*1000)}`;
   cTemp = response.data.main.temp;
@@ -134,13 +124,6 @@ function showTodaysWeather(response) {
   fLink.classList.remove("active");
   cLink.removeEventListener("click", displayC);
   fLink.addEventListener("click", displayF); 
-
-  /*if (celsius.classList.contains("active")) { IMPLEMENT THIS INSTEAD OF THE ABOVE
-    displayC ();
-  } else {
-    displayF ();
-  };*/
-
 } 
 
 function search(city) {
@@ -177,6 +160,7 @@ function findLocation(event) {
 let locationButton = document.querySelector(".my-location-button");
 locationButton.addEventListener("click", findLocation);
 
+
 // c-f link funtion
 function displayF(event) {
   event.preventDefault();
@@ -189,6 +173,7 @@ function displayF(event) {
   tempElement.innerHTML = Math.round((cTemp * 1.8) + 32);
   feelsLikeElement.innerHTML = Math.round((feelsLikeTemp * 1.8) + 32);
 
+  
   //display forecast F
   let forecastMax = document.querySelectorAll(".forecast-max");
   forecastMax.forEach(function(temp) {

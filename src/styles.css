@@ -25,44 +25,57 @@ hr {
   margin-top: 5px;
   margin-bottom: 5px;
   width: 70%;
+  color: #e7f0fd;
 }
 p {
   margin-bottom: 10px;
 }
 
 .search-container {
-  /*border: 1px solid black;*/
   padding: 1%;
   margin-bottom: 1%;
   border-radius: 10px;
-  background: #a7c5eb;
+  background-image: linear-gradient(to top, #accbee 0%, #a2c4e8 100%);
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
 }
 
 .fa-map-marker-alt {
   color: black;
   margin: 0 10px;
+  font-size: 18px;
 }
-
+#city-input {
+  border-radius: 7px;
+  border: 1px solid #e7f0fd;
+}
 .search-button,
 .my-location-button {
-  background: whites;
-  border: none;
-  /*border: 1px solid #56769e;*/
-  border-radius: 5px;
+  font-size: 15px;
+  padding: 2px 12px;
+  background-color: #e7f0fd;
+  border: 1px solid #a2c4e8;
+  border-radius: 20px;
   transition: all 150ms ease-in-out;
   color: #56769e;
+  color: black;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.15);
+  margin-left: 3px;
 }
+.my-location-button {
+  padding: 2px 6px;
+}
+
 .search-button:hover,
 .my-location-button:hover {
   border: 1px solid #a7c5eb;
+  box-shadow: none;
 }
 
 .main-body-container {
-  /*border: 1px solid black;*/
   padding: 2%;
   border-radius: 10px;
-  /*background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);*/
   background-image: linear-gradient(to top, #e7f0fd 0%, #accbee 100%);
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
 }
 .top-container {
   margin-bottom: 5px;
@@ -99,7 +112,7 @@ p {
   display: block;
   margin: 0 auto;
   width: 130px;
-  margin-top: 30px;
+  margin-top: 20px;
 }
 .weather-details {
   line-height: 22px;
@@ -107,8 +120,6 @@ p {
   padding: 0;
   text-align: center;
   font-size: 13px;
-  /*border: 1px solid #56769e;
-  padding: 15px;*/
 }
 .feels-like,
 #wind,
@@ -118,28 +129,34 @@ p {
 .local-time-line {
   text-align: right;
   font-size: 18px;
+  margin-bottom: 10px;
 }
 .local-time {
-  padding: 1px 8px;
-  background-color: #e7f0fd;
-  border-radius: 15px;
+  padding: 1px 5px;
+  background-color: #e7f0fda6;
+  border-radius: 5px;
 }
 .hourly-each {
   line-height: 35px;
-  text-align: right;
+  margin-left: 90px;
 }
+
 .hourly-image {
   width: 40px;
   margin: 0 10px;
 }
 
 .daily {
-  /*border: 1px solid #56769e;*/
   text-align: center;
   border-radius: 5px;
-  margin: 5px;
+  margin: 7px;
   padding: 5px 15px 0 15px;
-  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.15);
+  background-image: linear-gradient(
+    to top,
+    rgba(162, 196, 232, 0.7) 0%,
+    rgba(255, 255, 255, 0.3) 100%
+  );
 }
 .forecast-max {
   font-size: 22px;
@@ -161,12 +178,12 @@ p {
 .daily-date {
   font-size: 14px;
 }
-/*.forecast {
-  text-align: center;
-  position: relative;
-}*/
 
 .code-by {
-  margin-top: 5px;
+  margin-top: 10px;
   font-size: 12px;
+  margin-left: 5px;
+}
+.github-icon {
+  width: 18px;
 }
