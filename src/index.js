@@ -69,6 +69,7 @@ function showWeatherForecast(response) {
         <img src="http://openweathermap.org/img/wn/${forecast.weather[0].icon}@2x.png" alt="" class="daily-image">
       </div>`;
   }
+  
   let hourlyForecastElement = document.querySelector(".hourly-forecast");
   hourlyForecastElement.innerHTML = null;  
   let hourlyForecast = null;  
@@ -77,9 +78,9 @@ function showWeatherForecast(response) {
     tempForecast = Math.round(hourlyForecast.temp);
     hourlyForecastElement.innerHTML += `
       <div class="hourly-each">
-              <span class="hourly-hour">${formatHourlyLocalTimestamp(hourlyForecast.dt  * 1000)}</span> 
-              <img src="http://openweathermap.org/img/wn/${hourlyForecast.weather[0].icon}@2x.png" alt="" class="hourly-image"> <spam class="hourly-temp">${tempForecast}</spam>°
-            </div>`;
+        <span class="hourly-hour">${formatHourlyLocalTimestamp(hourlyForecast.dt  * 1000)}</span> 
+        <img src="http://openweathermap.org/img/wn/${hourlyForecast.weather[0].icon}@2x.png" alt="" class="hourly-image"> <spam class="hourly-temp">${tempForecast}</spam>°
+      </div>`;
  
       let date = new Date();
       let localTime = date.getTime();
@@ -173,7 +174,7 @@ function displayF(event) {
   tempElement.innerHTML = Math.round((cTemp * 1.8) + 32);
   feelsLikeElement.innerHTML = Math.round((feelsLikeTemp * 1.8) + 32);
 
-  
+
   //display forecast F
   let forecastMax = document.querySelectorAll(".forecast-max");
   forecastMax.forEach(function(temp) {

@@ -45,8 +45,8 @@ p {
   font-size: 18px;
 }
 #city-input {
-  border-radius: 7px;
-  border: 1px solid #e7f0fd;
+  border-radius: 6px;
+  border: 1px solid #a2c4e8;
 }
 .search-button,
 .my-location-button {
@@ -112,7 +112,7 @@ p {
   display: block;
   margin: 0 auto;
   width: 130px;
-  margin-top: 20px;
+  margin-top: 25px;
 }
 .weather-details {
   line-height: 22px;
@@ -129,7 +129,7 @@ p {
 .local-time-line {
   text-align: right;
   font-size: 18px;
-  margin-bottom: 10px;
+  margin-bottom: 4px;
 }
 .local-time {
   padding: 1px 7px;
